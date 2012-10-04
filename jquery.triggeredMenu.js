@@ -83,8 +83,7 @@
 			"target": null,						// ID of target, WITHOUT the pound sign ( '#' )
 			"activeMenuClass": "menu-active",	// A CSS class to add to active menus. Active menus will automatically be given a 'menu-active' class
 			"activateCallback": function(){},	// callback funciton to execute after the activation of a triggered menu
-			"deactivateCallback": function(){},	// callback funciton to execute after the deactivation of a triggered menu
-			"addClass": null
+			"deactivateCallback": function(){}	// callback funciton to execute after the deactivation of a triggered menu
 		};
 		
 		return this.each(function() {        
