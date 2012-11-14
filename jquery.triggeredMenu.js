@@ -15,21 +15,21 @@
 		}
 		
 		
-		return (			
-			$(".menu-trigger-active").length > 0) 
-			&& ($(ev.target).parents(".triggered-menu").length < 1)
-			&& (!($(ev.target).hasClass("triggered-menu"))
-			&& (ev.target != trigger.get(0))
-			&& ($($(ev.target).parent()).get(0) != trigger.get(0))
-		)
+		return (
+			$(".menu-trigger-active").length > 0) &&
+			($(ev.target).parents(".triggered-menu").length < 1) &&
+			(!($(ev.target).hasClass("triggered-menu")) &&
+			(ev.target != trigger.get(0)) &&
+			($($(ev.target).parent()).get(0) != trigger.get(0))
+		);
 	};
 	
 	var getRealHeight = function(ele){
 		
-		var tot = parseInt(ele.height());
+		var tot = parseInt(ele.height(), 10);
 		
-		tot += parseInt(ele.css("padding-top").replace("px", ""));
-		tot += parseInt(ele.css("padding-bottom").replace("px", ""));
+		tot += parseInt(ele.css("padding-top").replace("px", ""), 10);
+		tot += parseInt(ele.css("padding-bottom").replace("px", ""), 10);
 		
 		return tot;
 	};
@@ -52,12 +52,12 @@
 			
 			trigger.addClass("menu-trigger-active");
 			
-			var top = parseInt(trigger.offset().top + getRealHeight(trigger))  - 3;
-			var left = parseInt(trigger.offset().left) - parseInt(menu.css("borderLeftWidth").replace("px", ""));
+			var top = parseInt(trigger.offset().top + getRealHeight(trigger), 10)  - 3;
+			var left = parseInt(trigger.offset().left, 10) - parseInt(menu.css("borderLeftWidth").replace("px", ""), 10);
 			
 			if ($(window).width() <= 600){
 				left -= 25;
-				top += 2;	
+				top += 2;
 			}
 			
 			if (fromSide == "right"){
@@ -85,7 +85,7 @@
 	};
 	
 	
-	$.fn.triggeredMenu = function( options ) {  
+	$.fn.triggeredMenu = function( options ) {
 	
 		var settings = {
 			"target": null,						// ID of target, WITHOUT the pound sign ( '#' )
@@ -95,40 +95,40 @@
 			"fromSide": null
 		};
 		
-		return this.each(function() {        
+		return this.each(function() {
 			// If options exist, lets merge them with our default settings
 			if ( options ) { $.extend( settings, options ); }
 			
 			/*
-			 * Get our variables together 
-			 */			 			
+			 * Get our variables together
+			 */
 			var trigger = $(this);
 			trigger.addClass("menu-trigger");
 			
-			var menu;			
-			if ( !settings.target ){				
+			var menu;
+			if ( !settings.target ){
 				menu = $("#" + trigger.data("trigger-menu"));
 			}
 			else{
-				menu = $("#" + settings.target);	
+				menu = $("#" + settings.target);
 			}
 			
 			
 			/*
 			 * Bind some global events
-			 * 		safeguard against duplication
+			 * safeguards against duplication
 			 */
 			if (!(menu.hasClass("triggered-menu"))){
 				
-				menu.addClass("triggered-menu")
+				menu.addClass("triggered-menu");
 				
 				
 				/*
 				 * Main open/close event
 				 */
-				trigger.bind("click", function(event){		
+				trigger.bind("click", function(event){
 			
-					event.preventDefault();				
+					event.preventDefault();
 					
 					if (menu.hasClass("menu-active")){
 						methods.closeMenu.apply(this, Array(trigger, menu, settings.activeMenuClass, settings.deactivateCallback));
@@ -145,7 +145,7 @@
 				 */
 				$(window).resize(function(){
 					if (generallyFine(trigger, menu)){
-						if (oneResize){	
+						if (oneResize){
 							// this fixes what seems to be a bug in iOS where drawing the menu causes a "flash" resize
 							// it was closing the menu the first time it was opened
 							methods.closeMenu.apply(this, Array(trigger, menu, settings.activeMenuClass, settings.deactivateCallback));
@@ -172,10 +172,10 @@
 				trigger.focus(function(){
 					triggerFocused = true;
 					
-				});				
+				});
 				
 				
-				$(window).keydown(function(event){					
+				$(window).keydown(function(event){
 					if (trigger.hasClass("menu-trigger-active")){
 						if (event.which == 9 && triggerFocused){
 							if ($(":focus").get(0) == trigger.get(0)){
@@ -184,7 +184,7 @@
 								menu.find(":first").attr("tabIndex", "");
 								
 							}
-						}						
+						}
 					}
 				});
 				
