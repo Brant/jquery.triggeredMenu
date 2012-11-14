@@ -44,9 +44,9 @@
 			trigger.removeClass("menu-trigger-active");
 			menu.removeClass("menu-active").removeClass(additionalActiveClass);
 			
-			//trigger.focus();
-			
+			deactivateScreen.removeClass("triggered-menu-close-screen-active");
 			callback(trigger, menu);
+			
 		},
 		openMenu: function(trigger, menu, additionalActiveClass, callback, fromSide){
 			
@@ -79,11 +79,12 @@
 			
 			menu.addClass(additionalActiveClass).addClass("menu-active");
 			
+			deactivateScreen.addClass("triggered-menu-close-screen-active");
 			callback(trigger, menu);
-						
 		}
 	};
 	
+	var deactivateScreen;
 	
 	$.fn.triggeredMenu = function( options ) {
 	
@@ -99,6 +100,11 @@
 			// If options exist, lets merge them with our default settings
 			if ( options ) { $.extend( settings, options ); }
 			
+			deactivateScreen = $(".triggered-menu-close-screen");
+			if (deactivateScreen.length < 1){
+				deactivateScreen = $("<a href='#' class='triggered-menu-close-screen' />").prependTo("body");
+			}
+
 			/*
 			 * Get our variables together
 			 */
@@ -191,6 +197,11 @@
 					if (clickOK(ev, trigger, menu)){
 						methods.closeMenu.apply(this, Array(trigger, menu, settings.activeMenuClass, settings.deactivateCallback));
 					}
+				});
+
+				deactivateScreen.click(function(ev){
+					ev.preventDefault();
+					methods.closeMenu.apply(this, Array(trigger, menu, settings.activeMenuClass, settings.deactivateCallback));
 				});
 			}
 		});
