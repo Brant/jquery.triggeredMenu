@@ -12,8 +12,7 @@
 		
 		if (!generallyFine(trigger, menu)){
 			return false;
-		}
-		
+		}		
 		
 		return (
 			$(".menu-trigger-active").length > 0) &&
@@ -79,7 +78,11 @@
 			
 			menu.addClass(additionalActiveClass).addClass("menu-active");
 			
-			deactivateScreen.addClass("triggered-menu-close-screen-active");
+			// setTimeout prevents closeMenu removeClass from interfering
+			var t = setTimeout(function(){
+				deactivateScreen.addClass("triggered-menu-close-screen-active");
+			}, 50);
+
 			callback(trigger, menu);
 		}
 	};
