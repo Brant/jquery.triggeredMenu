@@ -116,7 +116,7 @@
 			
 			/*
 			 * Bind some global events
-			 * safeguards against duplication
+			 * but safeguard against duplication
 			 */
 			if (!(menu.hasClass("triggered-menu"))){
 				
@@ -173,7 +173,6 @@
 					triggerFocused = true;
 					
 				});
-				
 				
 				$(window).keydown(function(event){
 					if (trigger.hasClass("menu-trigger-active")){
