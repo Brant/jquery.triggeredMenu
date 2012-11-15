@@ -12,7 +12,7 @@
 		
 		if (!generallyFine(trigger, menu)){
 			return false;
-		}		
+		}
 		
 		return (
 			$(".menu-trigger-active").length > 0) &&
@@ -29,7 +29,20 @@
 		
 		tot += parseInt(ele.css("padding-top").replace("px", ""), 10);
 		tot += parseInt(ele.css("padding-bottom").replace("px", ""), 10);
+		//tot += parseInt(ele.css("border-top-width").replace("px", ""), 10);
+		//tot += parseInt(ele.css("border-bottom-width").replace("px", ""), 10);
+		return tot;
+	};
+
+	var getRealWidth = function(ele){
+
+		var tot = parseInt(ele.width(), 10);
 		
+		tot += parseInt(ele.css("padding-left").replace("px", ""), 10);
+		tot += parseInt(ele.css("padding-right").replace("px", ""), 10);
+		tot += parseInt(ele.css("border-right-width").replace("px", ""), 10);
+		tot += parseInt(ele.css("border-left-width").replace("px", ""), 10);
+
 		return tot;
 	};
 	
@@ -65,7 +78,6 @@
 				menu.css({"top": top, "right": left});
 			}
 			else{
-								
 				if (left < 0){
 					left = 0;
 					menu.addClass("left-edge-triggered-menu");
@@ -73,6 +85,18 @@
 				else{
 					menu.removeClass("left-edge-triggered-menu");
 				}
+				
+				var proposedPlacement = getRealWidth(menu) + left;
+				var windowWidth = $(window).width();
+
+				if (proposedPlacement > windowWidth){
+					left -= proposedPlacement - windowWidth + 10;
+				}
+
+				if (left < 0){
+					left = 0;
+				}
+				
 				menu.css({"top": top, "left": left});
 			}
 			
