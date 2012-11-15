@@ -3,4 +3,5 @@ jquery.triggeredMenu
 
 jQuery plugin for a toggleable menu
 
-** Not really ready for prime-time
+** This is pretty specific to the places I use it
+** It's Not really ready for prime-time
