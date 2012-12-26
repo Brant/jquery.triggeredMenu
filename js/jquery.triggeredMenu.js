@@ -60,11 +60,15 @@
 			callback(trigger, menu);
 			
 		},
-		openMenu: function(trigger, menu, additionalActiveClass, callback, fromSide){
+		openMenu: function(trigger, menu, settings){
+			
+			var additionalActiveClass = settings.activeMenuClass;
+			var callback = settings.activateCallback;
+			var fromSide = settings.fromSide;
 			
 			trigger.addClass("menu-trigger-active");
 			
-			var top = parseInt(trigger.offset().top + getRealHeight(trigger), 10)  - 3;
+			var top = parseInt(trigger.offset().top + getRealHeight(trigger), 10) - 3 + parseInt(settings.offsetTop);
 			var left = parseInt(trigger.offset().left, 10) - parseInt(menu.css("borderLeftWidth").replace("px", ""), 10);
 			
 			if ($(window).width() <= 600){
@@ -120,7 +124,8 @@
 			"activeMenuClass": "menu-active",	// A CSS class to add to active menus. Active menus will automatically be given a 'menu-active' class
 			"activateCallback": function(){},	// callback funciton to execute after the activation of a triggered menu
 			"deactivateCallback": function(){},	// callback funciton to execute after the deactivation of a triggered menu
-			"fromSide": null
+			"fromSide": null,
+			"offsetTop": 0
 		};
 		
 		return this.each(function() {
@@ -168,7 +173,7 @@
 					}
 					
 					else{
-						methods.openMenu.apply(this, Array(trigger, menu, settings.activeMenuClass, settings.activateCallback, settings.fromSide));
+						methods.openMenu.apply(this, Array(trigger, menu, settings));
 					}
 				});
 				
