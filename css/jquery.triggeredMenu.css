@@ -10,3 +10,12 @@
 .triggered-menu-close-screen-active{
 	display:block;
 }
+.triggered-menu{
+	position:absolute;
+	display:none;
+	z-index:-1;
+}
+.menu-active{
+	display:block;
+	z-index:999;
+}
