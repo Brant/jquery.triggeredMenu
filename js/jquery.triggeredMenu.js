@@ -54,11 +54,12 @@
 			}
 			
 			trigger.removeClass("menu-trigger-active");
-			menu.removeClass("menu-active").removeClass(additionalActiveClass);
-			
 			deactivateScreen.removeClass("triggered-menu-close-screen-active");
-			callback(trigger, menu);
 			
+			if (menu.hasClass("menu-active")){
+				menu.removeClass("menu-active").removeClass(additionalActiveClass);			
+				callback(trigger, menu);	
+			}
 		},
 		openMenu: function(trigger, menu, settings){
 			
@@ -168,10 +169,9 @@
 			
 					event.preventDefault();
 					
-					if (menu.hasClass("menu-active")){
+					if (trigger.hasClass("menu-trigger-active")){
 						methods.closeMenu.apply(this, Array(trigger, menu, settings.activeMenuClass, settings.deactivateCallback));
-					}
-					
+					}					
 					else{
 						methods.openMenu.apply(this, Array(trigger, menu, settings));
 					}
@@ -203,13 +203,11 @@
 				var triggerFocused = false;
 				
 				trigger.blur(function(){
-					triggerFocused = false;
-					
+					triggerFocused = false;					
 				});
 				
 				trigger.focus(function(){
-					triggerFocused = true;
-					
+					triggerFocused = true;					
 				});
 				
 				$(window).keydown(function(event){
